@@ -73,7 +73,6 @@
   }
 
 
-
   .PaletaListaItem__badge {
     background-color: greenyellow;
     width: 20px;
@@ -88,4 +87,8 @@
     border-radius: 50%;
     top: -9px;
     left: -9px;
+  }
+
+  .PaletaListaItem {
+    cursor: pointer;
   }

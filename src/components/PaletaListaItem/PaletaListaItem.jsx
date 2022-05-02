@@ -1,12 +1,23 @@
 import "./PaletaListaItem.css";
 
-function PaletaListaItem({ paleta, quantidadeSelecionada, index, onRemove, onAdd }) {
-
+function PaletaListaItem({
+  paleta,
+  quantidadeSelecionada,
+  index,
+  onRemove,
+  onAdd,
+  clickItem,
+}) {
   const removeButton = (canRender, index) =>
     Boolean(canRender) && (
-      <button className="Acoes__remover" onClick={() => onRemove(index)}>
-        {" "}
-        remover{" "}
+      <button
+        className="Acoes__remover"
+        onClick={(e) => {
+          e.stopPropagation();
+          onRemove(index);
+        }}
+      >
+        remover
       </button>
     );
 
@@ -16,21 +27,16 @@ function PaletaListaItem({ paleta, quantidadeSelecionada, index, onRemove, onAdd
     );
 
   return (
-    <div className="PaletaListaItem">
+    <div className="PaletaListaItem" onClick={() => clickItem(paleta.id)}>
       {badgeCounter(quantidadeSelecionada, index)}
       <div>
         <div className="PaletaListaItem__titulo"> {paleta.titulo} </div>
-        <div className="PaletaListaItem__preco">
-          R$ {paleta.preco.toFixed(2)}
-        </div>
+        <div className="PaletaListaItem__preco"> R$ {paleta.preco.toFixed(2)} </div>
         <div className="PaletaListaItem__descricao"> {paleta.descricao} </div>
         <div className="PaletaListaItem__acoes Acoes">
           <button
-            className={`Acoes__adicionar ${
-              !quantidadeSelecionada && "Acoes__adicionar--preencher"
-            }`}
-            onClick={() => onAdd(index)}
-          >
+            className={`Acoes__adicionar ${ !quantidadeSelecionada && "Acoes__adicionar--preencher" }`}
+            onClick={(e) => { e.stopPropagation(); onAdd(index); }} >
             adicionar
           </button>
           {removeButton(quantidadeSelecionada, index)}
